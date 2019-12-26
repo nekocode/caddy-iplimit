@@ -1,0 +1,10 @@
+:2016 {
+  iplimit 1 10s
+
+  root ./test_site
+  index index.html
+
+  gzip
+  log stdout
+  errors stderr
+}
