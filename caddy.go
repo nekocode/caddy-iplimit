@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	httpserver.RegisterDevDirective("iplimit", "")
+	httpserver.RegisterDevDirective("iplimit", "index")
 	caddymain.EnableTelemetry = false
 	caddymain.Run()
 }
