@@ -1,16 +1,15 @@
 Usage:
 
 ```
-iplimit max_amount max_age
+iplimit max_number
 ```
 
-* `max_amount` is the maximum number of IPs
-* `max_age` is the maximum inactive time per IP
+* `max_number` is the maximum number of IPs
 
 Example:
 
 ```
 :2016 {
-  iplimit 1 10s
+  iplimit 1
 }
 ```
