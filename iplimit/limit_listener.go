@@ -5,11 +5,13 @@ import (
 	"errors"
 	"net"
 	"sync"
+
+	"github.com/caddyserver/caddy"
 )
 
 // LimitListener returns a Listener that accepts at most n simultaneous
 // connections from the provided Listener.
-func LimitListener(l net.Listener, n int) net.Listener {
+func LimitListener(l caddy.Listener, n int) caddy.Listener {
 	return &limitListener{
 		Listener: l,
 		limit:    n,
@@ -18,7 +20,7 @@ func LimitListener(l net.Listener, n int) net.Listener {
 }
 
 type limitListener struct {
-	net.Listener
+	caddy.Listener
 	limit     int
 	ipPool    map[string]int
 	closeOnce sync.Once
