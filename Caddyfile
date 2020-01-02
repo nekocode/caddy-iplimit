@@ -1,5 +1,5 @@
 :2016 {
-  iplimit 1
+  iplimit 0
 
   root ./test_site
   index index.html

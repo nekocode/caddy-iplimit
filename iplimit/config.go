@@ -1,21 +1,28 @@
 package iplimit
 
 import (
-	"github.com/caddyserver/caddy"
 	"strconv"
+
+	"github.com/caddyserver/caddy"
+	"github.com/caddyserver/caddy/caddyhttp/httpserver"
+	cmap "github.com/orcaman/concurrent-map"
 )
 
 // Config specifies configuration parsed for Caddyfile
 type Config struct {
-	Max int
+	*httpserver.SiteConfig
+	Max    int
+	IPPool *cmap.ConcurrentMap
 }
 
-func parseConfig(c *caddy.Controller) (Config, error) {
-	var config = Config{}
+func parseConfig(controller *caddy.Controller) (Config, error) {
+	config := Config{
+		SiteConfig: httpserver.GetConfig(controller),
+	}
 	var err error
 
-	for c.Next() {
-		args := c.RemainingArgs()
+	for controller.Next() {
+		args := controller.RemainingArgs()
 
 		switch len(args) {
 		case 1:
@@ -24,7 +31,7 @@ func parseConfig(c *caddy.Controller) (Config, error) {
 				return config, err
 			}
 		default:
-			return config, c.ArgErr()
+			return config, controller.ArgErr()
 		}
 	}
 	return config, nil
